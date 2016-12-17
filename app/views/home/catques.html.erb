@@ -1,0 +1,56 @@
+<div class="row">
+	 <div class="col-md-2">
+    <h4>Categories</h4>
+    	<% @category.each do |c|%>
+        <h5><%= link_to c.content, catques_path(id: c.id) %></h5>
+	 	<% end %>
+	 </div>
+  <div class="col-md-8">
+	 	<div class="text-center">
+   
+        <p><%= link_to 'Ask a Question', new_question_path , class: "btn btn-primary"%></p>
+</div>
+<% if @questions.any? %>
+   <% @questions.each do |question| %>
+	 	<div class="jumbotron">
+            <h3> <%= question.content %></h3>
+            <h5 class="text-muted"><%= time_ago_in_words(question.created_at) %> ago by <%= question.user.email %></h5>
+            <% if user_signed_in? %>
+<% if can? :update, question  %>
+<%= link_to 'Edit', edit_question_path(question) %>
+<% end %>
+<% if can? :destroy, question %>
+<%= link_to 'Delete', question,method: :delete %>
+<% end %>
+<% end %>
+     </br >
+<% if question.answers.any? %>
+<h4>Answers</h4>
+<%= render question.answers.limit(2).sort {|a,b| b.get_upvotes.size <=> a.get_upvotes.size} %>
+<% if question.answers.count > 2 %>
+<button type="button" class="btn btn-primary btn-xs" data-toggle="collapse" data-target="#<%= question.id %>">Show All Answers</button>
+<br />
+<br />
+<div id="<%= question.id %>" class="collapse out">
+<%= render question.answers.offset(2).sort {|a,b| b.get_upvotes.size <=> a.get_upvotes.size} %>
+</div>
+<% end %>
+<% end %>
+<%= form_for [question, @answer] do |f| %>
+    <%= f.text_area :content ,class: "form-control" ,:placeholder => "Your Answer ",required: true %>
+     <br>
+      <%= f.submit "Add Answer", class: "btn btn-primary btn-xs" %>
+    <% end %>
+    <br>
+</div>
+<% end %>
+<% else %>
+<h4>There is no Question in this category.
+<% end %>
+</div>
+<div class="col-md-2">
+	 	<h4>Some Useful Links</h4>
+</div>
+
+
+

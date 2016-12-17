@@ -1,0 +1,50 @@
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <div class="jumbotron">
+<h2>Edit <%= resource_name.to_s.humanize %></h2>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put,:multipart => true } ) do |f| %>
+  <%= devise_error_messages! %>
+  <p>
+    <%= f.text_field :name ,class: "form-control" ,:placeholder => "Name",required: true %>
+     </p>
+ <p>
+    <%= f.text_field :email ,class: "form-control" ,:placeholder => "Email",required: true %>
+     </p>
+
+
+  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+  <% end %>
+
+  <p>
+    <%= f.password_field :password ,class: "form-control" ,:placeholder => "Password" %><i>(leave blank if you don't want to change it)</i>
+     
+    <% if @minimum_password_length %>
+    <em>(<%= @minimum_password_length %> characters minimum)</em>
+    <% end %><br />
+    </p>
+   <p>
+  <%= f.password_field :password_confirmation ,class: "form-control" ,:placeholder => "Password Confirmation" %>
+   </p>
+  <p>
+    <%= f.password_field :current_password ,class: "form-control" ,:placeholder => "Current Password",required: true %>
+    <i>(we need your current password to confirm your changes)</i>
+    </p>
+     <p>
+    <%= f.file_field :picture %>
+     </p>
+     <p>
+    <%= f.hidden_field :picture_cache %>
+     </p>
+  <%= f.submit "Update", class: "btn btn-primary" %>
+<% end %>
+
+<h3>Cancel my account</h3>
+
+<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete ,class: "btn btn-primary"%></p>
+
+<%= link_to "Back", :back %>
+</div>
+</div>
+</div>

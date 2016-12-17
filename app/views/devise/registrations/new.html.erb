@@ -1,0 +1,42 @@
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <div class="jumbotron">
+<h2>Sign up</h2>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), :html => {:multipart => true}) do |f| %>
+  <%= devise_error_messages! %>
+
+  <p>
+    <%= f.text_field :name ,class: "form-control" ,:placeholder => "Name",required: true %>
+     </p>
+  <p>
+    <%= f.text_field :email ,class: "form-control" ,:placeholder => "Email",required: true %>
+     </p>
+
+
+ <p>
+    <%= f.password_field :password ,class: "form-control" ,:placeholder => "Password",required: true %>
+     
+    <% if @minimum_password_length %>
+    <em>(<%= @minimum_password_length %> characters minimum)</em>
+    <% end %><br />
+    </p>
+   
+    <p>
+    <%= f.password_field :password_confirmation ,class: "form-control" ,:placeholder => "Password Confirmation",required: true %>
+    </p>
+     <p>
+    <%= f.file_field :picture %>
+     </p>
+     <p>
+    <%= f.hidden_field :picture_cache %>
+     </p>
+
+  <%= f.submit "Sign Up", class: "btn btn-primary" %>
+<% end %>
+
+<%= render "devise/shared/links" %>
+</div>
+</div>
+</div>
+
