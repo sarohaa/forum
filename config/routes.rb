@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :birds
   resources :categories
   root 'home#index'
 	get '/myquestions', to: 'home#myques'
