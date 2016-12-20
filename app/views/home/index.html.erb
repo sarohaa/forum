@@ -28,7 +28,7 @@
 <% end %>
      </br >
 <% if question.answers.any? %>
-<h4><%=  pluralize question.answers.count, "Answers" %></h4>
+<h4><%=  pluralize question.answers.count, "Answer" %></h4>
 <%= render question.answers.limit(2).sort {|a,b| b.get_upvotes.size <=> a.get_upvotes.size} %>
 <% if question.answers.count > 2 %>
 <button type="button" class="btn btn-primary btn-xs" data-toggle="collapse" data-target="#<%= question.id %>">Show All Answers</button>
