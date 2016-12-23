@@ -1,11 +1,11 @@
 class HomeController < ApplicationController
   def index
     
-    #if params[:search]
-     # @questions = Question.where('content LIKE ?',"%#{params[:search]}")
-    #else
+    if params[:query]
+      @questions = Question.text_search(params[:query]).paginate(:page => params[:page], :per_page =>2).order('created_at DESC')
+    else
   	 @questions = Question.paginate(:page => params[:page], :per_page =>2).order('created_at DESC')
-    #end
+    end
     @answer = Answer.new
     @category = Category.all
   end

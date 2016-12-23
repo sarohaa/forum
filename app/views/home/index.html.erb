@@ -10,13 +10,14 @@
 <div class="col-md-8">
 	 	<div class="text-center">
       <p><%= link_to 'Ask a Question', new_question_path , class: "btn btn-primary"%></p>
+       
     </div>
    <% @questions.each do |question| %>
 	 	<div class="jumbotron">
             <h3> <%= image_tag question.user.picture.thumb.url if question.user.picture? %>  <%= link_to question.content, question_path(question) %></h3>
             
             <h5 class="text-muted"><%= time_ago_in_words(question.created_at) %> ago by <%= question.user.name %></h5>
-            <%= image_tag question.picture.url if question.picture? %>
+            <%= link_to image_tag question.picture.url if question.picture? %>
             <br>
             <% if user_signed_in? %>
 <% if can? :update, question  %>
@@ -26,6 +27,7 @@
 <%= link_to 'Delete', question,method: :delete %>
 <% end %>
 <% end %>
+
      </br >
 <% if question.answers.any? %>
 <h4><%=  pluralize question.answers.count, "Answer" %></h4>

@@ -3963,6 +3963,13 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   .navbar-right {
     float: right !important;
   }
+  .navbar-center
+{
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    margin: auto;
+}
 }
 .navbar-form {
   margin-left: -15px;
