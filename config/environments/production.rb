@@ -36,6 +36,9 @@ password: ENV["GMAIL_PASSWORD"]
 
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = :uglifier
+  config.action_cable.allowed_request_origins = ['https://forumm.herokuapp.com',
+                                               'http://forumm.herokuapp.com']
+  config.action_cable.url = "wss://forumm.herokuapp.com/cable"
   # config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.

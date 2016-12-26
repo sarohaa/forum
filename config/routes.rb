@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 	get '/myquestions', to: 'home#myques'
   get '/catques', to: 'home#catques'
    get 'search', to: 'search#search'
-
+resources :chat_rooms, only: [:new, :create, :show, :index,:destroy]
   resources :questions do 
   	resources :answers do
   		member do
@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   	    end
       end
   end
+  mount ActionCable.server => '/cable'
   devise_for :users
   #match ":controller(/:action(/:id))" , :via => [:get,:post,:patch]
   

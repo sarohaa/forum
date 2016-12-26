@@ -19,6 +19,7 @@ gem 'mini_magick',             '4.5.1'
 gem 'fog',                     '1.38.0'
 gem 'pg'
 gem 'pg_search'
+gem 'redis', '~> 3.2'
 group :development, :test do
 gem 'foreman'
 end 
@@ -26,6 +27,7 @@ end
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
+gem 'coffee-script-source', '1.8.0' 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
