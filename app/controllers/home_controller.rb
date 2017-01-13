@@ -8,6 +8,7 @@ class HomeController < ApplicationController
     end
     @answer = Answer.new
     @category = Category.all
+    @question = Question.new
   end
   def myques
   	@user = current_user

@@ -32,7 +32,8 @@
     <i>(we need your current password to confirm your changes)</i>
     </p>
      <p>
-    <%= f.file_field :picture %>
+      <%= f.label :picture, "Upload Picture" %>
+    <%= f.file_field :picture,class: "form-control",placeholder: "Profile Picture" %>
      </p>
      <p>
     <%= f.hidden_field :picture_cache %>

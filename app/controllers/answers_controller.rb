@@ -12,13 +12,21 @@ class AnswersController < ApplicationController
 		@answer = @question.answers.build(answer_params)
 		@answer.user = current_user
 		@answer.save
-		redirect_to :back
+		respond_to do |format|
+        format.html {}
+        format.json {}
+        format.js {}
+        end
 	end
 
 	def destroy
 		@question = Question.find(params[:question_id])
 		@answer = @question.answers.find(params[:id]).destroy
-		redirect_to :back
+		respond_to do |format|
+        format.html {}
+        format.json {}
+        format.js {}
+        end
 	end
 	def upvote
 		@question = Question.find(params[:question_id])

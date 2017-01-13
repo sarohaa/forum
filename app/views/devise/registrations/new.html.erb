@@ -26,7 +26,8 @@
     <%= f.password_field :password_confirmation ,class: "form-control" ,:placeholder => "Password Confirmation",required: true %>
     </p>
      <p>
-    <%= f.file_field :picture %>
+      <%= f.label :picture, "Upload Picture" %>
+    <%= f.file_field :picture,class: "form-control",placeholder: "Profile Picture" %>
      </p>
      <p>
     <%= f.hidden_field :picture_cache %>

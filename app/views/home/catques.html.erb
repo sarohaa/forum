@@ -30,6 +30,7 @@
 <% end %>
 <% end %>
      </br >
+     <div id="addanswer<%= question.id %>">
 <% if question.answers.any? %>
 <h4>Answers</h4>
 <%= render question.answers.limit(2).sort {|a,b| b.get_upvotes.size <=> a.get_upvotes.size} %>
@@ -42,8 +43,10 @@
 </div>
 <% end %>
 <% end %>
-<%= form_for [question, @answer] do |f| %>
-    <%= f.text_area :content ,class: "form-control" ,:placeholder => "Your Answer ",required: true %>
+  </div>
+
+<%= form_for [question, @answer],remote: true do |f| %>
+    <%= f.text_area :content ,class: "form-control form-content" ,:placeholder => "Your Answer ",required: true %>
      <br>
       <%= f.submit "Add Answer", class: "btn btn-primary btn-xs" %>
     <% end %>

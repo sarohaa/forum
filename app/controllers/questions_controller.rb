@@ -74,7 +74,9 @@ class QuestionsController < ApplicationController
       flash[:success] = 'Question was successfully deleted.'
       format.html { redirect_to root_url }
       format.json { head :no_content }
+      format.js
     end
+    
   end
 
   private
