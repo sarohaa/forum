@@ -1,147 +1,153 @@
 <div class="row">
-	 <div class="col-md-2">
+  <div class="col-md-2">
     <br>
     <br>
     <h4>Categories</h4>
-        <% @category.each do |c|%>
-        <h5><%= link_to c.content, catques_path(id: c.id) %></h5>
-	 	    <% end %>
-	 </div>
-<div class="col-md-8">
-	 	<div class="text-center">
-      <p><%= link_to 'Ask a Question', new_question_path , class: "btn btn-primary"%></p>
-    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">
-  Ask A Question
-</button>
-
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      </div>
-
-      <div class="modal-body">
-        <p id="sub"></p>
-        <div id="subform">
-          <% if user_signed_in? %>
-      <%= form_for(@question, html: {multipart: true}) do |f| %>
-  <% if @question.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@question.errors.count, "error") %> prohibited this question from being saved:</h2>
-
-      <ul>
-      <% @question.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
- <p>
-    <%= f.text_area :content ,class: "form-control" ,:placeholder => "Your Question",required: true %>
-     </p>
-  <p>
-<%= f.select :category_id, Category.all.collect {|p| [ p.content, p.id ] }, {prompt: 'Select Topic'},class: "form-control",required: true %>
-  </p>
-  <p> <%= f.label "Upload Picture" %>
-    <%= f.file_field :picture,class: "form-control" %>
-     </p>
-
-    <%= f.submit params[:id] ? "Edit" : "Ask", class: "btn btn-primary" %>
- 
-<% end %>
-<% else %>
-<h2>Log in</h2>
-
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-   <p>
-    <%= f.text_field :email ,class: "form-control" ,:placeholder => "Email",required: true %>
-     </p>
-
-   <p>
-    <%= f.password_field :password ,class: "form-control" ,:placeholder => "Password",required: true %>
-     </p>
-  <% if devise_mapping.rememberable? -%>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
-    </div>
-  <% end -%>
-
-  <%= f.submit "Login", class: "btn btn-primary" %>
-<% end %>
-  <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
-  <%= link_to "Sign up", new_registration_path(resource_name) %><br />
-<% end -%>
-
-<%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
-  <%= link_to "Forgot your password?", new_password_path(resource_name) %><br />
-<% end -%>
-<% end %>
+    <% @category.each do |c|%>
+    <h5><%= link_to c.content, catques_path(id: c.id) %></h5>
+    <% end %>
   </div>
-      </div>
-      
-    </div>
-  </div>
-</div>
-</div>
-   <% @questions.each do |question| %>
-   <div id="desques<%= question.id %>">
-     <div class="jumbotron">
+  <div class="col-md-8">
+   <div class="text-center">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+      Ask A Question
+    </button>
+    <br />
+    <br />
 
-        <h3> <% if question.user.picture.present?  %>
-          <%= image_tag question.user.picture.thumb.url  %>
-            <% else %>
-            <%= gravatar_for question.user %>
-            <% end %>
-            <%= link_to question.content, question_path(question) %>
-        </h3>
-        <h5 class="text-muted"><%= time_ago_in_words(question.created_at) %> ago by <%= question.user.name %></h5>
-            <%= link_to image_tag(question.picture.url), question.picture.url if question.picture? %>
-            <br>
-            <% if user_signed_in? %>
-            <% if can? :update, question  %>
-            <%= link_to 'Edit', edit_question_path(question) %>
-            <% end %>
-            <% if can? :destroy, question %>
-            <%= link_to 'Delete', question,method: :delete %>
-            <% end %>
-            <% end %>
-            </br >
-        <div id="addanswer<%= question.id %>">
-         <% if question.answers.any? %>
-         <h4><%=  pluralize question.answers.count, "Answer" %></h4>
-         <%= render question.answers.limit(2).sort {|a,b| b.get_upvotes.size <=> a.get_upvotes.size} %>
-         <% if question.answers.count > 2 %>
-        <button type="button" class="btn btn-primary btn-xs" data-toggle="collapse" data-target="#<%= question.id %>">Show All Answers</button>
-         <br />
-         <br />
-          <div id="<%= question.id %>" class="collapse out">
-          <%= render question.answers.offset(2).sort {|a,b| b.get_upvotes.size <=> a.get_upvotes.size} %>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           </div>
-           <% end %>
-           <% end %>
+
+          <div class="modal-body">
+            <p id="sub"></p>
+            <div id="subform">
+              <% if user_signed_in? %>
+              <%= form_for(@question, html: {multipart: true}) do |f| %>
+              <% if @question.errors.any? %>
+              <div id="error_explanation">
+                <h2><%= pluralize(@question.errors.count, "error") %> prohibited this question from being saved:</h2>
+
+                <ul>
+                  <% @question.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                  <% end %>
+                </ul>
+              </div>
+              <% end %>
+              <p>
+                <%= f.text_area :content ,class: "form-control" ,:placeholder => "Your Question",required: true %>
+              </p>
+              <p>
+                <%= f.select :category_id, Category.all.collect {|p| [ p.content, p.id ] }, {prompt: 'Select Topic'},class: "form-control",required: true %>
+              </p>
+              <p> <%= f.label "Upload Picture" %>
+                <%= f.file_field :picture,class: "form-control" %>
+              </p>
+
+              <%= f.submit params[:id] ? "Edit" : "Ask", class: "btn btn-primary" %>
+              
+              <% end %>
+              <% else %>
+              <h2>Log in</h2>
+
+              <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+              <p>
+                <%= f.text_field :email ,class: "form-control" ,:placeholder => "Email",required: true %>
+              </p>
+
+              <p>
+                <%= f.password_field :password ,class: "form-control" ,:placeholder => "Password",required: true %>
+              </p>
+              <% if devise_mapping.rememberable? -%>
+              <div class="field">
+                <%= f.check_box :remember_me %>
+                <%= f.label :remember_me %>
+              </div>
+              <% end -%>
+
+              <%= f.submit "Login", class: "btn btn-primary" %>
+              <% end %>
+              <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
+              <%= link_to "Sign up", new_registration_path(resource_name) %><br />
+              <% end -%>
+
+              <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
+              <%= link_to "Forgot your password?", new_password_path(resource_name) %><br />
+              <% end -%>
+              <% end %>
+            </div>
+          </div>
+          
         </div>
-      </br >
-           <%= form_for [question, @answer] ,remote: true do |f| %>
-           <%= f.text_area :content ,class: "form-control form-content" ,:placeholder => "Your Answer ",required: true %>
-           <br>
-      <%= f.submit("Add Answer", class: "btn btn-primary btn-xs",remote: true) %>
-      <% end %>
-      <br>
       </div>
     </div>
-         <% end %>
-      <%= will_paginate @questions %>
+  </div>
+  <% @questions.each do |question| %>
+  <div id="desques<%= question.id %>">
+   <div class="jumbotron">
+<ul class="media-list">
+  <li class="media">
+    <a class="pull-left" href="#">
+      <% if question.user.picture.present?  %>
+      <%= image_tag question.user.picture.thumb.url  %>
+      <% else %>
+      <%= gravatar_for question.user %>
+      <% end %>
+     </a>
+     <div class="media-body">
+      <h3 class="media-heading"><%= link_to question.content, question_path(question) %></h3>
+    <%= link_to image_tag(question.picture.url), question.picture.url if question.picture? %>
+    <h5 class="text-muted"><%= time_ago_in_words(question.created_at) %> ago by <%= question.user.name.capitalize %></h5>
+    <% if user_signed_in? %>
+    <% if can? :update, question  %>
+    <%= link_to 'Edit', edit_question_path(question) %>
+    <% end %>
+    <% if can? :destroy, question %>
+    <%= link_to 'Delete', question,method: :delete %>
+    <% end %>
+    <% end %>
+    </div>
+  </li>
+</ul>
+  </br >
+  <div id="addanswer<%= question.id %>">
+   <% if question.answers.any? %>
+   <h4><%=  pluralize question.answers.count, "Answer" %></h4>
+   <%= render question.answers.limit(2).sort {|a,b| b.get_upvotes.size <=> a.get_upvotes.size} %>
+   <% if question.answers.count > 2 %>
+   <button type="button" class="btn btn-primary btn-xs" data-toggle="collapse" data-target="#<%= question.id %>">Show All Answers</button>
+   <br />
+   <br />
+   <div id="<%= question.id %>" class="collapse out">
+    <%= render question.answers.offset(2).sort {|a,b| b.get_upvotes.size <=> a.get_upvotes.size} %>
+  </div>
+  <% end %>
+  <% end %>
+</div>
+</br >
+<%= form_for [question, @answer] ,remote: true do |f| %>
+<%= f.text_area :content ,class: "form-control form-content" ,:placeholder => "Your Answer ",required: true %>
+<br>
+<%= f.submit("Add Answer", class: "btn btn-primary btn-xs",remote: true) %>
+<% end %>
+<br>
+</div>
+</div>
+<% end %>
+<%= will_paginate @questions %>
 
-      </div>
-    
-      
+</div>
+
+
 <div class="col-md-2">
-    <br>
-    <br>
-	 	<h4>Some Useful Links</h4>
+  <br>
+  <br>
+  <h4>Some Useful Links</h4>
 </div>
 </div>
 
