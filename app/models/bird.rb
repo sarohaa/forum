@@ -1,2 +1,4 @@
 class Bird < ApplicationRecord
+	
 end
+
