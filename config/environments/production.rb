@@ -33,7 +33,7 @@ password: ENV["GMAIL_PASSWORD"]
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.
   config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
-
+   config.action_controller.relative_url_root  = "/forumm.herokuapp.com"
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = :uglifier
   config.action_cable.allowed_request_origins = ['https://forumm.herokuapp.com',
