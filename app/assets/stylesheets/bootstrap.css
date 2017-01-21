@@ -1,3 +1,5 @@
+@import 'font-awesome';
+
 /*!
  * bootswatch v3.2.0
  * Homepage: http://bootswatch.com
@@ -4640,6 +4642,14 @@ a.thumbnail.active {
 .alert-success hr {
   border-top-color: #c9e2b3;
 }
+.alert-notice {
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+  color: #468847;
+}
+.alert-notice hr {
+  border-top-color: #c9e2b3;
+}
 .alert-success .alert-link {
   color: #356635;
 }
@@ -4671,6 +4681,14 @@ a.thumbnail.active {
   color: #b94a48;
 }
 .alert-danger hr {
+  border-top-color: #e6c1c7;
+}
+.alert-alert {
+  background-color: #f2dede;
+  border-color: #eed3d7;
+  color: #b94a48;
+}
+.alert-alert hr {
   border-top-color: #e6c1c7;
 }
 .alert-danger .alert-link {
