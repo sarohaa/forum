@@ -1,11 +1,11 @@
   <p><%= answer.content %> <small class="text-muted">by <%= answer.user.name %></small>
   	<% if user_signed_in? %>
      <div class="btn-group" id="content<%= answer.id %>">
-        <%= link_to like_question_answer_path(answer.question, answer), method: :put, remote: true, class: "btn btn-success btn-xs" do %>
-        Like(<%= answer.get_upvotes.size %>)
-      <% end %>
-      <%= link_to unlike_question_answer_path(answer.question, answer), method: :put, remote: true, class: "btn btn-danger btn-xs" do %>
-      Dislike(<%= answer.get_downvotes.size %>)
+        <%= link_to like_question_answer_path(answer.question, answer), method: :put, remote: true do %>
+        <i class="fa fa-thumbs-o-up fa-sm"></i>(<%= answer.get_upvotes.size %>)
+      <% end %> 
+      <%= link_to unlike_question_answer_path(answer.question, answer), method: :put, remote: true do %>
+      <i class="fa fa-thumbs-o-down fa-sm"></i>(<%= answer.get_downvotes.size %>)
       <% end %>
   </div>
   <% if can? :destroy, answer %>

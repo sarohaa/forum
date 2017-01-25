@@ -15,6 +15,7 @@ class HomeController < ApplicationController
   	@questions = current_user.questions.paginate(:page => params[:page], :per_page =>2).order('created_at DESC')
   end
   def catques
+     @question = Question.new
   	 @questions = Question.where("category_id = ?", params[:id])
     @answer = Answer.new
     @category = Category.all
