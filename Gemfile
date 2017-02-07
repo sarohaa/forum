@@ -8,10 +8,10 @@ gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
 gem 'devise'
-gem 'bootstrap', '~> 4.0.0.alpha3.1'
+#gem 'bootstrap', '~> 4.0.0.alpha3.1'
 gem 'cancan'
 gem 'acts_as_votable', '~> 0.10.0'
-gem "font-awesome-rails"
+gem 'font-awesome-sass', '~> 4.7.0'
 #gem 'sunspot_rails'
 #gem 'elasticsearch-model'
 #gem 'elasticsearch-rails'
